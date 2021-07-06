@@ -31,7 +31,6 @@ export const List = () => {
 
 	const onScroll = (event: any) => {
 		if (!!manualScrolling.current) return;
-		console.log('onScroll');
 		const scrollT = event.target.scrollTop;
 		const scrollH = event.target.scrollHeight;
 		const offsetH = event.target.offsetHeight;
@@ -49,15 +48,12 @@ export const List = () => {
 		scrollRef.current.childNodes?.[selected]?.scrollIntoView({block: "center"}); // {block: "center", behavior: "smooth"}
 	};
 	const moveUp = () => {
-		console.log('moveUp');
 		manualScrolling.current = true;
 		setSelected(selected <= 1 ? 1 : selected - 1);
 		scrollToSelected();
 		setTimeout(() => manualScrolling.current = false, 1000);
-		console.log(selected);
 	}
 	const moveDown = () => {
-		console.log('moveDown');
 		manualScrolling.current = true;
 		setSelected(selected > listJson.length - 1 ? listJson.length - 1 : selected + 1);
 		scrollToSelected();
