@@ -1,0 +1,28 @@
+{
+  "name": "scroll_relativity",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@material-ui/core": "^4.9.14",
+    "classnames": "^2.3.1",
+    "lodash": "^4.17.21",
+    "next": "11.0.1",
+    "normalize.css": "^8.0.1",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "react-use-keypress": "^1.3.0"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.170",
+    "@types/react": "17.0.13",
+    "eslint": "7.30.0",
+    "eslint-config-next": "11.0.1",
+    "typescript": "4.3.5"
+  }
+}
