@@ -23,10 +23,8 @@ const useStyles = makeStyles(theme => ({
 
 export const List = () => {
 	const classes = useStyles();
-	const [scrollTop, setScrollTop] = useState(0);
 	const [selected, setSelected] = useState(0);
 	const [lineWay, setLineWay] = useState(0);
-	const [mouseEnter, setMouseEnter] = useState(0);
 
 	const scrollRef = useRef<any>();
 	const manualScrolling = useRef<boolean>(false);
@@ -37,7 +35,6 @@ export const List = () => {
 		const scrollT = event.target.scrollTop;
 		const scrollH = event.target.scrollHeight;
 		const offsetH = event.target.offsetHeight;
-		const positionEl = event.target.getBoundingClientRect();
 		const usefulPart = scrollH - offsetH;
 		const percentagesOfUsefulPart = scrollT * 100 / usefulPart;
 		const percentagesOfScrollableZone = offsetH * percentagesOfUsefulPart / 100;
@@ -45,7 +42,6 @@ export const List = () => {
 		const allItems = event.target.childNodes;
 		const itemIndex = _.findIndex(allItems, (el: any) => el.offsetTop < lineWay && (el.offsetTop + el.offsetHeight) > lineWay);
 		if (itemIndex > 0) setSelected(itemIndex);
-		setScrollTop(scrollT);
 		setLineWay(lineWayOn);
 	};
 
@@ -67,13 +63,29 @@ export const List = () => {
 		scrollToSelected();
 		setTimeout(() => manualScrolling.current = false, 1000);
 	}
+	const padeUp = () => {
+		manualScrolling.current = true;
+		setSelected(1);
+		scrollToSelected();
+		setTimeout(() => manualScrolling.current = false, 1000);
+	}
+	const padeDown = () => {
+		manualScrolling.current = true;
+		setSelected(listJson.length - 1);
+		scrollToSelected();
+		setTimeout(() => manualScrolling.current = false, 1000);
+	}
 	const keyPress = useKeypress(['ArrowUp', 'ArrowDown'], (event: any) => {
 		event.preventDefault();
 		if (event.key === 'ArrowUp') {
 			moveUp();
-    } else {
+		} else if (event.key === 'ArrowDown') {
 			moveDown();
-    }
+		} else if (event.key === 'Home' || event.key === 'PageUp') {
+			padeUp();
+		} else if (event.key === 'ArrowDown' || event.key === 'PageDown') {
+			padeDown();
+		}
   });
 
 	return (<div ref={scrollRef} onScroll={onScroll} onKeyPress={keyPress} className={classes.containerItems}>
